@@ -45,22 +45,22 @@ $ yarn run test:cov
 
 1. Who are the first 10 authors ordered by date_of_birth?
 ```sql
-SELECT * FROM authors ORDER BY date_of_birth LIMIT 10
+SELECT * FROM authors ORDER BY date_of_birth ASC LIMIT 10
 ```
 
 2. What is the sales total for the author named “Lorelai Gilmore”?
 ```sql
 SELECT a.name AS author_name, SUM(si.item_price*si.quantity) AS sales_total FROM sales_items si
-LEFT JOIN books b ON si.book_id = b.id
-LEFT JOIN authors a ON b.author_id = a.id
+INNER JOIN books b ON si.book_id = b.id
+INNER JOIN authors a ON b.author_id = a.id
 WHERE a.name = 'Lorelai Gilmore'
 ```
 
 3. What are the top 10 performing authors, ranked by sales revenue?
 ```sql
 SELECT a.id AS author_id, a.name AS author_name, SUM(si.item_price*quantity) AS revenue FROM sales_items si
-LEFT JOIN books b ON si.book_id = b.id
-LEFT JOIN authors a ON b.author_id = a.id
+INNER JOIN books b ON si.book_id = b.id
+INNER JOIN authors a ON b.author_id = a.id
 GROUP BY a.id
 ORDER BY revenue DESC
 LIMIT 10
