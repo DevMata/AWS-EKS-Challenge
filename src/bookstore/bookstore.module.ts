@@ -1,10 +1,15 @@
 import { Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
-import { Author } from './entities/author.entity'
-import { Book } from './entities/book.entity'
-import { SaleItem } from './entities/sale-item.entity'
+import { AuthorsService } from './services/authors.service'
+import { AuthorsController } from './authors.controller'
+import { SalesItemsRepository } from './repositories/sales-items.repository'
+import { AuthorsRepository } from './repositories/authors.repository'
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Author, Book, SaleItem])],
+  imports: [
+    TypeOrmModule.forFeature([AuthorsRepository, SalesItemsRepository]),
+  ],
+  providers: [AuthorsService],
+  controllers: [AuthorsController],
 })
 export class BookstoreModule {}
