@@ -30,7 +30,9 @@
     "migration:revert": "nest build && typeorm migration:revert",
     "seed": "ts-node ./node_modules/typeorm-seeding/dist/cli.js",
     "seed:config": "yarn seed config",
-    "seed:run": "yarn seed seed"
+    "seed:run": "yarn seed seed",
+    "schema:drop": "typeorm schema:drop",
+    "schema:sync": "typeorm schema:sync"
   },
   "dependencies": {
     "@nestjs/common": "^7.6.15",
@@ -38,6 +40,7 @@
     "@nestjs/platform-express": "^7.6.15",
     "@nestjs/typeorm": "^7.1.5",
     "connect-timeout": "^1.9.0",
+    "dotenv": "^9.0.2",
     "helmet": "^4.6.0",
     "pg": "^8.6.0",
     "reflect-metadata": "^0.1.13",
