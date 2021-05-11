@@ -41,14 +41,17 @@ $ yarn run test:cov
 ```
 
 # Solution
+
 ## Part 1: SQL Challenge
 
 1. Who are the first 10 authors ordered by date_of_birth?
+
 ```sql
 SELECT * FROM authors ORDER BY date_of_birth ASC LIMIT 10
 ```
 
 2. What is the sales total for the author named “Lorelai Gilmore”?
+
 ```sql
 SELECT a.name AS author_name, SUM(si.item_price*si.quantity) AS sales_total FROM sales_items si
 INNER JOIN books b ON si.book_id = b.id
@@ -57,6 +60,7 @@ WHERE a.name = 'Lorelai Gilmore'
 ```
 
 3. What are the top 10 performing authors, ranked by sales revenue?
+
 ```sql
 SELECT a.id AS author_id, a.name AS author_name, SUM(si.item_price*quantity) AS revenue FROM sales_items si
 INNER JOIN books b ON si.book_id = b.id
@@ -70,8 +74,8 @@ LIMIT 10
 
 The API was built with NestJs. The following are required env vars to run the project
 
-| Environment Variable Key  | Environment Variable Value         |
-| ------------------------- | ---------------------------------- |
+| Environment Variable Key | Environment Variable Value         |
+| ------------------------ | ---------------------------------- |
 | DB_CONNECTION            | postgres                           |
 | DB_HOST                  | localhost                          |
 | DB_USERNAME              | your username                      |
@@ -85,3 +89,5 @@ The API was built with NestJs. The following are required env vars to run the pr
 | DB_MIGRATIONS_RUN        | true                               |
 | DB_SEEDS                 | src/seeds/\*_/_{.ts,.js}           |
 | DB_FACTORIES             | src/seeds/factories/\*_/_{.ts,.js} |
+| PORT                     | 3000                               |
+| PREFIX                   | api/v1                             |
