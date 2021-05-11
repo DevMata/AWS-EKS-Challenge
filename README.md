@@ -65,3 +65,23 @@ GROUP BY a.id
 ORDER BY revenue DESC
 LIMIT 10
 ```
+
+## Part 2: API Endpoint to get top performing authors
+
+The API was built with NestJs. The following are required env vars to run the project
+
+| Environment Variable Key  | Environment Variable Value         |
+| ------------------------- | ---------------------------------- |
+| DB_CONNECTION            | postgres                           |
+| DB_HOST                  | localhost                          |
+| DB_USERNAME              | your username                      |
+| DB_PASSWORD              | your password                      |
+| DB_PORT                  | 5432                               |
+| DB_NAME                  | postgres                           |
+| DB_SCHEMA                | public                             |
+| DB_MIGRATIONS_TABLE_NAME | migrations                         |
+| DB_MIGRATIONS            | dist/migrations/\*.js              |
+| DB_MIGRATIONS_DIR        | migrations                         |
+| DB_MIGRATIONS_RUN        | true                               |
+| DB_SEEDS                 | src/seeds/\*_/_{.ts,.js}           |
+| DB_FACTORIES             | src/seeds/factories/\*_/_{.ts,.js} |
