@@ -1,3 +1,17 @@
+# ... Persistent volume claim
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: redis-pvc
+  labels:
+    app: redis
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 500Mi
+---
 # ... Deployment
 apiVersion: apps/v1
 kind: Deployment
@@ -7,25 +21,26 @@ spec:
   selector:
     matchLabels:
       app: redis
-      role: master
-      tier: backend
   replicas: 1
   template:
     metadata:
       labels:
         app: redis
-        role: master
-        tier: backend
     spec:
       containers:
         - name: redis
-          image: k8s.gcr.io/redis:e2e
-          resources:
-            requests:
-              cpu: 100m
-              memory: 100Mi
+          image: redis:latest
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 6379
+          volumeMounts:
+            - name: redis-db
+              mountPath: /data
+              readOnly: false
+      volumes:
+        - name: redis-db
+          persistentVolumeClaim:
+            claimName: redis-pvc
 ---
 # ... Service
 apiVersion: v1
@@ -34,13 +49,12 @@ metadata:
   name: redis
   labels:
     app: redis
-    role: master
-    tier: backend
 spec:
   ports:
-    - port: 6379
+    - name: redis
+      port: 6379
       targetPort: 6379
+  type: NodePort
   selector:
     app: redis
-    role: master
-    tier: backend
+

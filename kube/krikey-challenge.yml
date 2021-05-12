@@ -14,8 +14,8 @@ spec:
         app: krikey-challenge
     spec:
       containers:
-        - name: api
-          image: antoniomata07/krikey-challenge:1.0.0
+        - name: app
+          image: antoniomata07/krikey-challenge:1.0.3
           imagePullPolicy: Always
           ports:
             - containerPort: 3000
@@ -26,17 +26,15 @@ spec:
             - name: DB_HOST
               value: 'postgres.default'
             - name: DB_USERNAME
-              value: '$(POSTGRES_USERNAME)'
+              value: '$(POSTGRES_USER)'
             - name: DB_PASSWORD
               value: '$(POSTGRES_PASSWORD)'
             - name: DB_NAME
               value: '$(POSTGRES_DB)'
             - name: DB_SCHEMA
-              value: '$(DB_SCHEMA)'
+              value: public
             - name: REDIS_HOST
               value: 'redis.default'
-            - name: REDIS_PORT
-              value: '6379'
             - name: REDIS_TTL
               value: '300'
 ---
@@ -49,6 +47,6 @@ spec:
   selector:
     app: krikey-challenge
   ports:
-    - port: 80
+    - port: 3000
       targetPort: 3000
   type: LoadBalancer

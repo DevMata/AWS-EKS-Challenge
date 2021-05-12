@@ -1,6 +1,6 @@
 # ... Persistent volume
-kind: PersistentVolume
 apiVersion: v1
+kind: PersistentVolume
 metadata:
   name: postgres-pv
   labels:
@@ -9,7 +9,7 @@ metadata:
 spec:
   storageClassName: manual
   capacity:
-    storage: 256Mi
+    storage: 1Gi
   accessModes:
     - ReadWriteMany
   hostPath:
@@ -28,21 +28,7 @@ spec:
     - ReadWriteMany
   resources:
     requests:
-      storage: 256Mi
----
-# ... Service
-apiVersion: v1
-kind: Service
-metadata:
-  name: postgres
-  labels:
-    app: postgres
-spec:
-  type: NodePort
-  selector:
-    app: postgres
-  ports:
-    - port: 5432
+      storage: 1Gi
 ---
 # ... Deployment
 apiVersion: apps/v1
@@ -50,6 +36,7 @@ kind: Deployment
 metadata:
   name: postgres
 spec:
+  replicas: 1
   selector:
     matchLabels:
       app: postgres
@@ -74,3 +61,17 @@ spec:
         - name: postgres-db
           persistentVolumeClaim:
             claimName: postgres-pvc
+---
+# ... Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres
+  labels:
+    app: postgres
+spec:
+  type: NodePort
+  selector:
+    app: postgres
+  ports:
+    - port: 5432

@@ -94,7 +94,7 @@ WHERE a.name = 'Lorelai Gilmore'
 
 In this case we searched for an explicit coincidence. In many cases we should use at least a `like` or `ilike` clauses for improving user experience.
 
-One of the top solutions for searches like this is fuzzy search. Or 
+One of the top solutions for searches like this is fuzzy search. Or
 
 3. What are the top 10 performing authors, ranked by sales revenue?
 
@@ -131,7 +131,7 @@ A step-by-step guide about containerize and deploy with Kubernetes
 
 ### Dockerfile and building a Docker image
 
-We can create a exclusive image for our API. To do that, we need the following `Dockerfile`:
+We can create an exclusive image for our API. To do that, we need the following `Dockerfile`:
 
 ```dockerfile
 # specify the desired version of the base image
@@ -157,14 +157,32 @@ One best practice is defining an exclusive user to run our containerized project
 Once we have our `Dockerfile` we can build and publish our image following the next steps:
 
 1. Log in to the DockerHub registry with `docker login`
-2. Build and tag the image with `docker build -t <username>/krikey-challenge:1.0.0 .`, the `-t` specify the container tag and `.` tells Docker to look for the Dockerfile in the current directory. 
+2. Build and tag the image with `docker build -t <username>/krikey-challenge:1.0.0 .`, the `-t` specify the container tag and `.` tells Docker to look for the Dockerfile in the current directory.
 3. The tag must follow the format `<username>/<imagename>:<tag o version>` to allow the push to the DockerHub.
-3. Push the image with `<username>/krikey-challenge:1.0.0`
+4. Push the image with `docker push <username>/krikey-challenge:1.0.0`
 
 Our published image can be found [here](https://hub.docker.com/r/antoniomata07/krikey-challenge)
 
 ### Kubernetes
 
+Our project have 3 components: Node.js API, Postgres database and Redis database. So, similarly as we did with docker-compose we need to define config for every resource in Kubernetes. We create a `/kube` directory at the root of our project, with this we keep all of Kubernetes `.yml` files together.
+We have the following structure within our files:
+
+#### Node.js API
+1. Deployment
+2. Service
+
+#### Postgres database
+1. Deployment
+2. Service
+3. Persistent volume
+
+#### Redis database
+1. Deployment
+2. Service
+
+#### Secret variables
+We store our secrets with a `secrets.yml` file.
 
 # About the author
 
