@@ -5,10 +5,12 @@ import {
   Query,
   UseInterceptors,
 } from '@nestjs/common'
+import { ApiTags } from '@nestjs/swagger'
 import { AuthorsService } from './services/authors.service'
 import { TopAuthorDto } from './dto/response/top-author.dto'
 import { AuthorNameDto } from './dto/request/author-name.dto'
 
+@ApiTags('Authors')
 @Controller('authors')
 export class AuthorsController {
   constructor(private readonly authorsService: AuthorsService) {}

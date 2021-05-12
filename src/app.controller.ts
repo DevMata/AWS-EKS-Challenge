@@ -6,7 +6,9 @@ import {
   HttpHealthIndicator,
   TypeOrmHealthIndicator,
 } from '@nestjs/terminus'
+import { ApiTags } from '@nestjs/swagger'
 
+@ApiTags('Core')
 @Controller()
 export class AppController {
   constructor(

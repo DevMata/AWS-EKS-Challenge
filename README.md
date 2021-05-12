@@ -65,6 +65,14 @@ $ yarn run test:cov
 
 # Solution
 
+## Documentation
+
+Open API(Swagger) documentation can be found at `/api/v1/reference`
+
+## Health checks
+
+Health check for the API and the database can be found at `api/v1/health`
+
 ## Part 1: SQL Challenge
 
 1. Who are the first 10 authors ordered by date_of_birth?
@@ -116,3 +124,10 @@ The API will return appropriate errors if an author_name param is passed wrongly
 One way to improve API performance is adding a caching layer. NestJs provides us a great built-in module for adding cache.
 
 We can use a good variety of stores, including an in-memory store. For practical purposes we added a Redis store, and we set a TTL of 300 seconds(i.e. 5 minutes).
+
+# About the author
+
+Antonio Mata is a backend developer with 2 years of experience. Currently, he's focusing on Node.js, Typescript and NestJs to built backend solutions, REST and GraphQL APIs.
+
+- Github - [DevMata](https://github.com/DevMata)
+- LinkedIn - [Antonio Mata](https://www.linkedin.com/in/antoniomatasv/)
