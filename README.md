@@ -94,7 +94,7 @@ WHERE a.name = 'Lorelai Gilmore'
 
 In this case we searched for an explicit coincidence. In many cases we should use at least a `like` or `ilike` clauses for improving user experience.
 
-One of the top solutions for searches like this is fuzzy search.
+One of the top solutions for searches like this is fuzzy search. Or 
 
 3. What are the top 10 performing authors, ranked by sales revenue?
 
@@ -162,6 +162,9 @@ Once we have our `Dockerfile` we can build and publish our image following the n
 3. Push the image with `<username>/krikey-challenge:1.0.0`
 
 Our published image can be found [here](https://hub.docker.com/r/antoniomata07/krikey-challenge)
+
+### Kubernetes
+
 
 # About the author
 

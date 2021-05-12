@@ -1,0 +1,54 @@
+# ... Deployment YAML definition
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: krikey-challenge
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: krikey-challenge
+  template:
+    metadata:
+      labels:
+        app: krikey-challenge
+    spec:
+      containers:
+        - name: api
+          image: antoniomata07/krikey-challenge:1.0.0
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
+          envFrom:
+            - secretRef:
+                name: krikey-secrets
+          env:
+            - name: DB_HOST
+              value: 'postgres.default'
+            - name: DB_USERNAME
+              value: '$(POSTGRES_USERNAME)'
+            - name: DB_PASSWORD
+              value: '$(POSTGRES_PASSWORD)'
+            - name: DB_NAME
+              value: '$(POSTGRES_DB)'
+            - name: DB_SCHEMA
+              value: '$(DB_SCHEMA)'
+            - name: REDIS_HOST
+              value: 'redis.default'
+            - name: REDIS_PORT
+              value: '6379'
+            - name: REDIS_TTL
+              value: '300'
+---
+# ... Service YAML definition
+apiVersion: v1
+kind: Service
+metadata:
+  name: krikey-challenge
+spec:
+  selector:
+    app: krikey-challenge
+  ports:
+    - port: 80
+      targetPort: 3000
+  type: LoadBalancer
