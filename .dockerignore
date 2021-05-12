@@ -1,0 +1,20 @@
+# Dependencies
+node_modules
+
+# Tests
+coverage
+
+# Git
+.git
+.gitignore
+README.md
+
+# Logs and Tests
+logs
+*.log
+
+# Other
+npm-debug.log
+
+# Project
+dist
