@@ -19,7 +19,7 @@ $ yarn install
 | Environment Variable Key | Environment Variable Value         |
 | ------------------------ | ---------------------------------- |
 | DB_CONNECTION            | postgres                           |
-| DB_HOST                  | localhost                          |
+| DB_HOST                  | database                           |
 | DB_USERNAME              | your username                      |
 | DB_PASSWORD              | your password                      |
 | DB_PORT                  | 5432                               |
@@ -33,7 +33,7 @@ $ yarn install
 | DB_FACTORIES             | src/seeds/factories/\*_/_{.ts,.js} |
 | PORT                     | 3000                               |
 | PREFIX                   | api/v1                             |
-| REDIS_HOST               | localhost                          |
+| REDIS_HOST               | redis                              |
 | REDIS_PORT               | 6379                               |
 | REDIS_TTL                | 300                                |
 
@@ -124,6 +124,44 @@ The API will return appropriate errors if an author_name param is passed wrongly
 One way to improve API performance is adding a caching layer. NestJs provides us a great built-in module for adding cache.
 
 We can use a good variety of stores, including an in-memory store. For practical purposes we added a Redis store, and we set a TTL of 300 seconds(i.e. 5 minutes).
+
+## Part 3: Docker and Kubernetes
+
+A step-by-step guide about containerize and deploy with Kubernetes
+
+### Dockerfile and building a Docker image
+
+We can create a exclusive image for our API. To do that, we need the following `Dockerfile`:
+
+```dockerfile
+# specify the desired version of the base image
+FROM node:14.16.0
+# set the working dir for config permissions
+WORKDIR /usr/src/
+# define permissions for node user
+RUN chown -R node:node /usr/src
+# set the working dir for the project
+WORKDIR /usr/src/app
+# copy files for dependencies
+COPY package.json yarn.lock ./
+# install dependencies
+RUN yarn install
+# copy all project files
+COPY . /app
+# define user
+USER node
+```
+
+One best practice is defining an exclusive user to run our containerized project. By default, Node.js images run as root, so we needed to set the built-in node user.
+
+Once we have our `Dockerfile` we can build and publish our image following the next steps:
+
+1. Log in to the DockerHub registry with `docker login`
+2. Build and tag the image with `docker build -t <username>/krikey-challenge:1.0.0 .`, the `-t` specify the container tag and `.` tells Docker to look for the Dockerfile in the current directory. 
+3. The tag must follow the format `<username>/<imagename>:<tag o version>` to allow the push to the DockerHub.
+3. Push the image with `<username>/krikey-challenge:1.0.0`
+
+Our published image can be found [here](https://hub.docker.com/r/antoniomata07/krikey-challenge)
 
 # About the author
 

@@ -29,7 +29,7 @@ async function bootstrap() {
   const options = new DocumentBuilder()
     .setTitle('Krikey Backend Challenge')
     .setDescription('Top 10 Authors')
-    .setVersion('1.0')
+    .setVersion('1.0.0')
     .build()
 
   const document = SwaggerModule.createDocument(app, options)
