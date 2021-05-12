@@ -1,12 +1,16 @@
-import { Controller, Get } from '@nestjs/common'
+import { Controller, Get, Query } from '@nestjs/common'
 import { AuthorsService } from './services/authors.service'
+import { TopAuthorDto } from './dto/response/top-author.dto'
+import { AuthorNameDto } from './dto/request/author-name.dto'
 
 @Controller('authors')
 export class AuthorsController {
   constructor(private readonly authorsService: AuthorsService) {}
 
   @Get('top')
-  findTopAuthors(): Promise<any> {
-    return this.authorsService.findTopAuthors()
+  findTopAuthors(
+    @Query() authorNameDto: AuthorNameDto,
+  ): Promise<TopAuthorDto[]> {
+    return this.authorsService.findTopAuthors(authorNameDto)
   }
 }
