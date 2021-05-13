@@ -20,8 +20,8 @@ spec:
           ports:
             - containerPort: 3000
           envFrom:
-            - configMapRef:
-                name: krikey-config
+            - secretRef:
+                name: postgres-secrets
           env:
             - name: DB_HOST
               value: 'postgres'
@@ -34,7 +34,7 @@ spec:
             - name: DB_SCHEMA
               value: 'public'
             - name: REDIS_HOST
-              value: 'redis'
+              value: 'redis-master'
             - name: REDIS_TTL
               value: '300'
 ---

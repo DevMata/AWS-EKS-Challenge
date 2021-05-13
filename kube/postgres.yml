@@ -1,25 +1,23 @@
-# ... Persistent volume
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: postgres-pv
+  name: postgres-pv-volume
   labels:
     type: local
     app: postgres
 spec:
   storageClassName: manual
   capacity:
-    storage: 1Gi
+    storage: 5Gi
   accessModes:
     - ReadWriteMany
   hostPath:
     path: '/var/lib/data'
 ---
-# ... Persistent volume claim
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: postgres-pvc
+  name: postgres-pv-claim
   labels:
     app: postgres
 spec:
@@ -28,9 +26,8 @@ spec:
     - ReadWriteMany
   resources:
     requests:
-      storage: 1Gi
+      storage: 5Gi
 ---
-# ... Deployment
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -47,22 +44,21 @@ spec:
     spec:
       containers:
         - name: postgres
-          image: postgres:12
-          imagePullPolicy: "IfNotPresent"
+          image: postgres:13
+          imagePullPolicy: 'IfNotPresent'
           ports:
             - containerPort: 5432
           envFrom:
-            - configMapRef:
-                name: krikey-config
+            - secretRef:
+                name: postgres-secrets
           volumeMounts:
-            - name: postgres-db
-              mountPath: /var/lib/postgresql/data
+            - mountPath: /var/lib/postgresql/data
+              name: postgredb
       volumes:
-        - name: postgres-db
+        - name: postgredb
           persistentVolumeClaim:
-            claimName: postgres-pvc
+            claimName: postgres-pv-claim
 ---
-# ... Service
 apiVersion: v1
 kind: Service
 metadata:
@@ -71,7 +67,7 @@ metadata:
     app: postgres
 spec:
   type: NodePort
-  selector:
-    app: postgres
   ports:
     - port: 5432
+  selector:
+    app: postgres
