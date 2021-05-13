@@ -236,19 +236,15 @@ spec:
 We have the following structure within our files:
 
 #### Node.js API
-
 1. Deployment
 2. Service
 
 #### Postgres database
-
 1. Deployment
 2. Service
 3. Persistent volume
-4. Persistent claim volume
 
 #### Redis database
-
 1. Deployment
 2. Service
 
