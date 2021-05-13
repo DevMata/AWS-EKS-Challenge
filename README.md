@@ -184,6 +184,13 @@ We have the following structure within our files:
 #### Secret variables
 We store our secrets with a `secrets.yml` file.
 
+## Into our GCP
+Now, we need to log in to our GCP account.
+
+1. Look for Kubernetes Engine option in the left menu
+2. Open or create the desire Kubernetes cluster
+3. Click on `Connect` option. Now we have two alternatives to use the GCP 
+
 # About the author
 
 Antonio Mata is a backend developer with 2 years of experience. Currently, he's focusing on Node.js, Typescript and NestJs to built backend solutions, REST and GraphQL APIs.

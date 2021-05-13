@@ -30,7 +30,7 @@ spec:
       containers:
         - name: redis
           image: redis:latest
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: "IfNotPresent"
           ports:
             - containerPort: 6379
           volumeMounts:
@@ -53,11 +53,7 @@ metadata:
     tier: backend
 spec:
   ports:
-    - protocol: TCP
-      name: redis
-      port: 6379
-      targetPort:
-      nodePort: 32000
+    - port: 6379
   type: NodePort
   selector:
     app: redis

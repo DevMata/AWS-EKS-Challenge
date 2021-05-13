@@ -73,11 +73,5 @@ spec:
   type: NodePort
   selector:
     app: postgres
-    role: metadata
-    tier: backend
   ports:
-    - protocol: TCP
-      name: postgres
-      port: 5432
-      targetPort:
-      nodePort: 31000
+    - port: 5432
