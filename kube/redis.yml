@@ -49,11 +49,15 @@ metadata:
   name: redis
   labels:
     app: redis
+    role: metadata
+    tier: backend
 spec:
   ports:
-    - name: redis
+    - protocol: TCP
+      name: redis
       port: 6379
-      targetPort: 6379
+      targetPort:
+      nodePort: 32000
   type: NodePort
   selector:
     app: redis

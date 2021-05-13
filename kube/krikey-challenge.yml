@@ -20,11 +20,13 @@ spec:
           ports:
             - containerPort: 3000
           envFrom:
-            - secretRef:
-                name: krikey-secrets
+            - configMapRef:
+                name: krikey-config
           env:
             - name: DB_HOST
-              value: 'postgres.default'
+              value: 'postgres'
+            - name : DB_PORT
+              value: '31000'
             - name: DB_USERNAME
               value: '$(POSTGRES_USER)'
             - name: DB_PASSWORD
@@ -32,9 +34,11 @@ spec:
             - name: DB_NAME
               value: '$(POSTGRES_DB)'
             - name: DB_SCHEMA
-              value: public
+              value: 'public'
             - name: REDIS_HOST
-              value: 'redis.default'
+              value: 'redis'
+            - name: REDIS_PORT
+              value: '32000'
             - name: REDIS_TTL
               value: '300'
 ---
@@ -46,6 +50,8 @@ metadata:
 spec:
   selector:
     app: krikey-challenge
+    role: metadata
+    tier: backend
   ports:
     - port: 3000
       targetPort: 3000
