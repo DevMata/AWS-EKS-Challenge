@@ -4,7 +4,7 @@
 
 # Description
 
-Krikey Backend Challenge
+AWS EKS Challenge
 
 ## Installation
 
